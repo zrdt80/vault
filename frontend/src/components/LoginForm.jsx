@@ -1,11 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-function LoginForm({ onSuccess }) {
+function LoginForm({ onSuccess, setAlert }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -18,9 +16,18 @@ function LoginForm({ onSuccess }) {
                 }
             );
             localStorage.setItem("token", res.data.token);
+            setAlert({
+                type: "success",
+                message: "Login successful! Redirecting...",
+            });
             onSuccess();
         } catch (err) {
-            alert(err.response?.data?.message || "Login failed");
+            setAlert({
+                type: "danger",
+                message:
+                    err.response?.data?.message ||
+                    "Login failed. Please try again.",
+            });
         }
     };
 

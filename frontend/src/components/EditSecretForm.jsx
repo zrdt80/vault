@@ -4,6 +4,7 @@ import axios from "axios";
 function EditSecretForm({ secret, onUpdate, onCancel }) {
     const [title, setTitle] = useState(secret.title);
     const [value, setValue] = useState(secret.value);
+    const [alert, setAlert] = useState(null);
     const token = localStorage.getItem("token");
 
     const handleSubmit = async (e) => {
@@ -14,9 +15,16 @@ function EditSecretForm({ secret, onUpdate, onCancel }) {
                 { title, value },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            onUpdate(); // refetch secrets
+            onUpdate();
+            setAlert({
+                type: "success",
+                message: "Secret updated successfully!",
+            });
         } catch (err) {
-            alert("Failed to update secret");
+            setAlert({
+                type: "danger",
+                message: "Failed to update secret. Please try again.",
+            });
         }
     };
 
