@@ -14,7 +14,7 @@ def create_app():
     app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", "sqlite:///vault.db")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    CORS(app, origins=["http://localhost:5173"])
+    CORS(app, origins=["http://localhost:5173", "https://vault-rosy.vercel.app"])
 
     db.init_app(app)
 
