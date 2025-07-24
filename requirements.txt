@@ -1,8 +1,0 @@
-Flask
-Flask-SQLAlchemy
-python-dotenv
-bcrypt
-pyjwt
-cryptography
-pytest
-werkzeug
