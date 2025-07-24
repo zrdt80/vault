@@ -1,58 +1,152 @@
-# 📚 API Reference – Vault
+# 📘 API.md – Vault Secret Manager API Reference
 
 All endpoints require a valid Bearer token unless specified.
 
 ---
 
-## 🔐 Auth
+## Base URL
 
-### `POST /register`
-Registers a new user.
-
-**Body:**
-```json
-{ "username": "user", "password": "1234" }
 ```
-
-### `POST /login`
-Returns JWT token.
-
-**Body:**
-```json
-{ "username": "user", "password": "1234" }
+http://localhost:5000
 ```
 
 ---
 
-## 🔑 Secrets
+## 🧾 Authentication
 
-### `GET /secrets`
-Get all secrets for the authenticated user.
+All endpoints except `/register` and `/login` require a valid JWT token in the `Authorization` header:
 
-**Headers:**  
-`Authorization: Bearer <token>`
+```
+Authorization: Bearer <your_token_here>
+```
 
 ---
 
-### `POST /secrets`
+## 📨 POST /register
+
+Create a new user account.
+
+**Request Body:**
+
+```json
+{
+    "username": "john",
+    "password": "1234"
+}
+```
+
+**Response:**
+
+-   `201 Created`
+
+```json
+{ "message": "User registered" }
+```
+
+---
+
+## 📨 POST /login
+
+Login and receive a JWT access token.
+
+**Request Body:**
+
+```json
+{
+    "username": "john",
+    "password": "1234"
+}
+```
+
+**Response:**
+
+-   `200 OK`
+
+```json
+{ "token": "<JWT_TOKEN>" }
+```
+
+---
+
+## 📥 GET /secrets
+
+Returns all secrets for the authenticated user.
+
+**Headers:**
+
+```
+Authorization: Bearer <JWT_TOKEN>
+```
+
+**Response:**
+
+```json
+[
+    {
+        "id": 1,
+        "title": "API Key",
+        "value": "123abc",
+        "created_at": "2025-07-24T10:00:00"
+    }
+]
+```
+
+---
+
+## 📤 POST /secrets
+
 Create a new secret.
 
-**Body:**
+**Request Body:**
+
 ```json
-{ "title": "My Secret", "value": "xyz" }
+{
+    "title": "Github Key",
+    "value": "ghp_abc123"
+}
+```
+
+**Response:**
+
+-   `201 Created`
+
+```json
+{ "message": "Secret created" }
 ```
 
 ---
 
-### `PATCH /secrets/<id>`
-Update a secret (if owned).
+## 🛠 PATCH /secrets/
 
-**Body:**
+Update an existing secret by ID.
+
+**Request Body:**
+
 ```json
-{ "title": "New Title", "value": "newvalue" }
+{
+    "title": "Updated Title",
+    "value": "updated-value"
+}
+```
+
+**Response:**
+
+-   `200 OK`
+
+```json
+{ "message": "Secret updated" }
 ```
 
 ---
 
-### `DELETE /secrets/<id>`
-Delete a secret (if owned).
+## ❌ DELETE /secrets/
+
+Delete a secret by ID.
+
+**Response:**
+
+-   `200 OK`
+
+```json
+{ "message": "Secret deleted" }
+```
