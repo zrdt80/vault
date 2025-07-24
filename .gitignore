@@ -22,3 +22,21 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Database files
+*.db
+
+# Environment files
+.env
+
+# Virtual environments
+.venv/
+venv/
+
+# Miscellaneous
+.idea/
+.vscode/
