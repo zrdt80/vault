@@ -1,0 +1,18 @@
+services:
+    - type: web
+      name: vault-backend
+      env: python
+      region: frankfurt
+      buildCommand: pip install -r requirements.txt
+      startCommand: python run.py
+      envVars:
+          - key: FLASK_ENV
+            value: production
+          - key: FLASK_APP
+            value: run.py
+          - key: SECRET_KEY
+            sync: false
+          - key: DATABASE_URL
+            value: sqlite:///vault.db
+          - key: FERNET_KEY
+            sync: false
