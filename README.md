@@ -5,6 +5,13 @@ It’s built with a Flask backend, React frontend, and full JWT authentication f
 
 ---
 
+## 🔗 Live preview
+
+You can check out project at link:
+[https://vault-alpha-hazel.vercel.app/](https://vault-alpha-hazel.vercel.app/)
+
+---
+
 ## 🧹 Monorepo Structure
 
 ```
